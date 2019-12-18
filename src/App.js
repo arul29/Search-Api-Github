@@ -7,7 +7,8 @@ class App extends Component {
     this.onSearch = this.onSearch.bind(this);
     this.state = {
       dataUser: [],
-      username: ""
+      username: "",
+      isNotExist: ""
     };
   }
   handleChange(e) {
@@ -28,6 +29,10 @@ class App extends Component {
       })
       .catch(error => {
         console.log(error);
+        this.setState({
+          dataUser: [],
+          isNotExist: "User not exist"
+        });
       });
   }
 
@@ -46,20 +51,28 @@ class App extends Component {
           <input onClick={this.onSearch} type="button" value="Search" />
         </form>
         <br />
-        <table border="1">
-          <tr>
-            <td>repo name</td>
-            <td>full name</td>
-          </tr>
-          {this.state.dataUser.map(item => {
-            return (
-              <tr>
-                <td>{item.name}</td>
-                <td>{item.full_name}</td>
-              </tr>
-            );
-          })}
-        </table>
+        {this.state.dataUser.length > 0 ? (
+          <table border="1">
+            <tr>
+              <td>
+                <b>repo name</b>
+              </td>
+              <td>
+                <b>full name</b>
+              </td>
+            </tr>
+            {this.state.dataUser.map(item => {
+              return (
+                <tr>
+                  <td>{item.name}</td>
+                  <td>{item.full_name}</td>
+                </tr>
+              );
+            })}
+          </table>
+        ) : (
+          <p>{this.state.isNotExist}</p>
+        )}
       </div>
     );
   }
