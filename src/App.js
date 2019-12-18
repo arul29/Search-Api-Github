@@ -10,7 +10,6 @@ class App extends Component {
       username: ""
     };
   }
-
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -52,10 +51,14 @@ class App extends Component {
             <td>repo name</td>
             <td>full name</td>
           </tr>
-          <tr>
-            <td></td>
-            <td></td>
-          </tr>
+          {this.state.dataUser.map(item => {
+            return (
+              <tr>
+                <td>{item.name}</td>
+                <td>{item.full_name}</td>
+              </tr>
+            );
+          })}
         </table>
       </div>
     );
